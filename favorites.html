@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Favorites</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+    background:#081b29;
+    color:white;
+    padding:40px;
+}
+
+h1{
+    text-align:center;
+    color:#ff4081;
+    margin-bottom:30px;
+}
+
+.container{
+    width:80%;
+    margin:auto;
+    background:#112e42;
+    border-radius:15px;
+    padding:30px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#0ef;
+    color:black;
+    padding:15px;
+}
+
+td{
+    padding:15px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+tr:hover{
+    background:#173b55;
+}
+
+.delete-btn{
+    background:red;
+    color:white;
+    border:none;
+    padding:15px 25px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+    margin-top:20px;
+}
+
+.delete-btn:hover{
+    background:#ff3333;
+}
+
+.back-btn{
+    display:inline-block;
+    margin-top:20px;
+    background:#00bfff;
+    color:black;
+    padding:15px 25px;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.back-btn:hover{
+    background:#00ffff;
+}
+
+.select-all{
+    margin-bottom:20px;
+    font-size:18px;
+}
+
+</style>
+</head>
+<body>
+
+<h1>❤️ Favorite Movies</h1>
+
+<div class="container">
+
+<form action="/delete_favorites" method="POST">
+
+<div class="select-all">
+<label>
+<input type="checkbox" id="selectAll">
+Select All
+</label>
+</div>
+
+<table>
+
+<tr>
+<th>Select</th>
+<th>Movie Name</th>
+</tr>
+
+{% for movie in favorite_movies %}
+
+<tr>
+
+<td>
+<input type="checkbox"
+name="selected_movies"
+value="{{ movie[0] }}"
+class="movieCheckbox">
+</td>
+
+<td>
+{{ movie[0] }}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<button class="delete-btn">
+🗑 Delete 
+</button>
+
+</form>
+
+<a href="/account" class="back-btn">
+← Back to Account
+</a>
+
+</div>
+
+<script>
+
+const selectAll = document.getElementById("selectAll");
+const checkboxes = document.querySelectorAll(".movieCheckbox");
+
+selectAll.addEventListener("click", function(){
+
+    checkboxes.forEach(function(box){
+        box.checked = selectAll.checked;
+    });
+
+});
+
+</script>
+
+</body>
+</html>
